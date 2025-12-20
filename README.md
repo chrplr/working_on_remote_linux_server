@@ -25,7 +25,7 @@ disppear, you have a backup of your code on https://github.com
 ## 1. Prerequisites and Installation
 
 * **SSH Access:** You need the IP/Hostname, username, password and port (default 22) for the remote machine.
-* **Local Git:** Download from [git-scm.com](https://git-scm.com/). Windows users should install third-party Unix tools and use **Git Bash**.
+* **Local Git:** Download and install `git` from [git-scm.com](https://git-scm.com/). Windows users should select third-party Unix tools during the installation ,which will allow them to use **Git Bash**.
 * **Remote Git:** Ensure Git is installed on the remote computer (contact your admin if it is missing).
 * **GitHub Account:** Sign up at [github.com](https://github.com).
 
