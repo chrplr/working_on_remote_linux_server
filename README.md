@@ -31,14 +31,12 @@ To enable passwordless connections:
 1. **Generate Local Key:** Run `ssh-keygen` on your local machine to create a `.pub` file in `~/.ssh`.
 2. **Copy Key to Remote:** Run `ssh-copy-id yourlogin@remote_IP_or_name`.
 3. **Configure Shortcuts:** Edit `~/.ssh/config` to add a Host entry:
-```text
-Host myremote
-  Hostname  remote_IP_or_name
-  User yourlogin
-  ForwardX11 yes
-  Port 22
 
-```
+       Host myremote
+          Hostname  remote_IP_or_name
+          User yourlogin
+          ForwardX11 yes
+          Port 22   
 
 4. **Verify:** Run `ssh myremote ls` to ensure you can connect without a password. If it does not work, check the previous steps.
 
