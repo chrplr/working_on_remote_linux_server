@@ -1,4 +1,4 @@
-# A workflow to use a remote linux computed, based on git.
+# A workflow to use a remote linux computer
 
 2025-12-20 Christophe Pallier <christophe@pallier.org>
 
