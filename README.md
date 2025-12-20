@@ -2,15 +2,23 @@
 
 2025-12-20 Christophe Pallier <christophe@pallier.org>
 
-I present here the typical workflow I use for working on a remote Linux machine (e.g., a cluster or workstation) from a local computer (e.g., my laptop).
+This document presents the typical workflow I use for working on a remote
+Linux machine (e.g., a cluster or workstation) from a local computer
+(e.g., my laptop).
 
 ## The Architecture
 
-The code for your project resides in a folder synchronized across three locations:
+The code for the project resides in a folder synchronized across three locations:
 
 1. **Local Computer:** For editing and local testing.
 2. **GitHub.com:** For version control and synchronization.
 3. **Remote Computer:** For execution and heavy processing.
+
+This allows you to develop the code on the local computer. To run it
+on the remote computer, you just need to run `git push` on the local
+computer, and `git push` on the remote computer. Voilà! The folders on
+the two machines are synchronized. Bonus point: Should both computers
+disppear, you have a backup of your code on https://github.com
 
 ---
 
@@ -24,7 +32,10 @@ The code for your project resides in a folder synchronized across three location
 ## 2. SSH Configuration
 
 
-Open a terminal (Git Bash for Windows users), and check that you can connect to the remote computer through ssh: Run `ssh -p port_numeer username@remote_IP_or_name`. If for whatever reason the connection fails, contact the administrator of the remote machine.
+Open a terminal ("Git Bash"" for Windows users), and check that you can
+connect to the remote computer through ssh: Run `ssh -p port_numbers
+username@remote_IP_or_name`. If for whatever reason the connection
+fails, contact the administrator of the remote machine.
 
 To enable passwordless connections:
 
@@ -36,7 +47,7 @@ To enable passwordless connections:
           Hostname  remote_IP_or_name
           User yourlogin
           ForwardX11 yes
-          Port 22   
+          Port 22
 
 4. **Verify:** Run `ssh myremote ls` to ensure you can connect without a password. If it does not work, check the previous steps.
 
@@ -45,7 +56,8 @@ To enable passwordless connections:
 Both your local and remote computers need to talk to GitHub:
 
 1. **Add Keys:** Copy the content of your local `~/.ssh/*.pub` file to your GitHub account settings under "SSH and GPG keys".
-2. **Remote Key:** Connect to the remote machine, run `ssh-keygen`, and add that public key to GitHub as well. Use `ssh myremote cat .ssh/*.pub` to view it from your local terminal.
+2. **Remote Key:** Connect to the remote machine, run `ssh-keygen`, and add that public key to GitHub as well. 
+     Use `ssh myremote cat .ssh/*.pub` to view it from your local terminal.
 
 ## 4. Synchronizing the Project
 
@@ -59,16 +71,15 @@ Always follow the "Pull-Push" cycle to keep your three locations (Local, GitHub,
 
 Suppose you work on computer A (local or remote):
 
-Before modifying any file, run `git pull`, to synchronize with the latest commit form github.
+Before modifying any file, run `git pull` on A, to synchronize with the latest commit from github.
 
 When you are done working:
 
      git add .
-     git commit -m "Your message"`
-     git push`
+     git commit -m "Your message"
+     git push
 
-
-Then log onto computer B, cd in the project folder and run `git pull` (this can be done directly from tjhe local computer using ssh)
+Then, on computer B, run `git pull` in the project's folder (note: this can be done directly from the local computer using ssh).
 
 
 ### Handling Merge Conflicts
@@ -82,7 +93,7 @@ If you inadvertently edit the same file(s) on both machines simultaneously, `git
 
 ## 6. Remote Execution and tmux
 
-For long-running scripts, use **tmux** on the remote computer to prevent the process from dying if your connection drops.
+For long-running scripts, use **tmux** on the remote computer to prevent the processes from dying if your connection drops.
 Moreover, this will allow you to reconnect and monitor the progress of your scripts.
 
 * **Start:** Type `tmux` on the remote machine.
