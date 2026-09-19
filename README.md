@@ -2,9 +2,9 @@
 
 2025-12-20 Christophe Pallier <christophe@pallier.org>
 
-This document presents the typical workflow I use for working on a remote
-Linux machine (e.g., a cluster or workstation) from a local computer
-(e.g., my laptop).
+This document presents the typical workflow I use for working on a
+remote Linux machine (e.g., a cluster or workstation) from a local
+computer, typically my laptop.
 
 ## The Architecture
 
@@ -34,18 +34,18 @@ disppear, you have a backup of your code on https://github.com
 
 Open a terminal ("Git Bash"" for Windows users), and check that you can
 connect to the remote computer through ssh: Run `ssh -p port_numbers
-username@remote_IP_or_name`. If for whatever reason the connection
+remotelogin@remote_IP_or_name`. If for whatever reason the connection
 fails, contact the administrator of the remote machine.
 
 To enable passwordless connections:
 
 1. **Generate Local Key:** Run `ssh-keygen` on your local machine to create a `.pub` file in `~/.ssh`.
-2. **Copy Key to Remote:** Run `ssh-copy-id yourlogin@remote_IP_or_name`.
+2. **Copy Key to Remote:** Run `ssh-copy-id remotelogin@remote_IP_or_name`.
 3. **Configure Shortcuts:** Edit `~/.ssh/config` to add a Host entry:
 
        Host myremote
           Hostname  remote_IP_or_name
-          User yourlogin
+          User remotelogin
           ForwardX11 yes
           Port 22
 
@@ -96,7 +96,7 @@ If you inadvertently edit the same file(s) on both machines simultaneously, `git
 For long-running scripts, use **tmux** on the remote computer to prevent the processes from dying if your connection drops.
 Moreover, this will allow you to reconnect and monitor the progress of your scripts.
 
-* **Start:** Type `tmux` on the remote machine.
+* **Start:** Type `tmux` on the remote machine (install it if needed).
 * **Detach:** Press `Ctrl+b` then `d` to leave the script running while you disconnect.
 * **Reattach:** Use `tmux -a` to return to your session later.
 
@@ -107,8 +107,24 @@ For files not tracked by Git, use `rsync` or `scp`:
 ```bash
 # Sync data from remote to local
 rsync -r --info=progress2 myremote:datafolder .
-
 ```
 
+## 8. Working with a remote jupyter notebook
+
+You can also directly work on the remote computer through a jupyter notebook running on the remote and displayed on your local machine 
+
+
+In a first terminal: 
+
+```
+ssh -L 8080:localhost:8080 myremote
+
+cd xxx                       # cd to folder where the project lives
+source .venv/bin/activate    # activate the relevant python venv 
+uv pip install jupyter       # install jupyter if not done previously
+
+jupyter notebook --no-browser --port=8080
+```
+Note the http://....   URL printed on the console and copy in a browser running on localhost.
 
 
